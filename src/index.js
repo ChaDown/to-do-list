@@ -1,3 +1,5 @@
+import "./style.css";
+
 function ToDoItem(title, description, dueDate, priority) {
   (this.title = title),
     (this.description = description),
