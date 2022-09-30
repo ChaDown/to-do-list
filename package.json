@@ -18,10 +18,13 @@
   },
   "homepage": "https://github.com/ChaDown/to-do-list#readme",
   "devDependencies": {
+    "file-loader": "^6.2.0",
+    "html-loader": "^4.2.0",
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
     "css-loader": "^6.7.1",
+    "date-fns": "^2.29.3",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1"
   }
