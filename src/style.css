@@ -116,3 +116,15 @@ li {
   height: 100vh;
   width: 100vw;
 }
+
+.red {
+  background-color: rgba(254, 150, 150, 0.38);
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: rgba(101, 198, 101, 0.443);
+}
