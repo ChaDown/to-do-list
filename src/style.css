@@ -1,3 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap");
+
+html,
 body {
-  background-color: aqua;
+  font-family: "Shadows Into Light Two", sans-serif;
+  font-size: 20px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: rgb(135, 210, 207);
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  align-items: center;
+}
+
+.header-right,
+.header-left {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon {
+  height: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.icon:hover,
+.add-btn:hover {
+  background-color: rgb(211, 255, 249);
+}
+
+.main-container {
+  flex: 2;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  min-height: calc(100vh - 2rem);
+}
+
+.sidebar {
+  background-color: rgb(240, 236, 236);
+}
+
+.footer {
+  background-color: rgb(135, 210, 207);
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding-top: 1rem;
+}
+
+li {
+  margin: 0.8rem 0.5rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.folder-name {
+  font-size: 2rem;
+  margin: 1rem 1rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 1rem;
+  border-bottom: solid rgb(224, 223, 223) 2px;
+}
+
+.add-item-modal {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 51vw;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  border: solid grey 1px;
+  z-index: 9999;
+  opacity: 1;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.add-btn {
+  grid-area: 6/ 2/ 7/ 3;
+  background-color: rgb(240, 236, 236);
+  border: solid gray 1px;
+  border-radius: 5px;
+}
+
+.darkscale {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.364) !important;
+  height: 100vh;
+  width: 100vw;
 }

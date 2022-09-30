@@ -4,11 +4,106 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="main.js"></script>
     <title>To-Do List</title>
   </head>
   <body>
-    HTML Template
-    <div class="test">Im a test</div>
+    <div class="overlay"></div>
+    <div class="content">
+    <div class="header">
+      <div class="header-left">
+        <img src="./assets/home-outline.svg" alt="Home-icon" class="icon" />
+        <div class="title">My To-Do List</div>
+      </div>
+      <div class="header-right">
+        <img src="./assets/add-outline.svg" alt="Add-icon" class="icon add-icon" />
+        <img src="./assets/calendar-outline.svg" alt="Cal-icon" class="icon" />
+      </div>
+    </div>
+    <div class="main-container">
+      <div class="sidebar">
+        <ul>
+          <li>
+            <img class="icon" src="./assets/file-outline.svg" alt="file" />
+            All Tasks
+          </li>
+          <li>
+            <img class="icon" src="./assets/today-outline.svg" alt="today" />
+            Today
+          </li>
+          <li>
+            <img
+              class="icon"
+              src="./assets/construct-outline.svg"
+              alt="project"
+            />
+            Projects&nbsp&nbsp
+            <img
+              class="icon"
+              src="./assets/chevron-down-outline.svg"
+              alt="chevron"
+            />
+          </li>
+        </ul>
+      </div>
+      <div class="item-container">
+        <div class="folder-name">All Tasks</div>
+        <div class="items">
+          <!--
+        <div class="item">
+          <div class="item-name">Cut the grass</div>
+          <div class="item-icons">
+            <img
+              class="icon"
+              src="./assets/alert-circle-outline.svg"
+              alt="alert"
+            />
+            <img class="icon" src="./assets/create-outline.svg" alt="edit" />
+            <img class="icon" src="./assets/add-circle-outline.svg" alt="add" />
+            <img class="icon" src="./assets/trash-outline.svg" alt="delete" />
+          </div>
+        </div>
+      -->
+        </div>
+      </div>
+    </div>
+    <div class="add-item-modal">
+          <h2>Add a new task</h2>
+
+          <div class="form-container">
+
+            <label for="title"><b>Title</b></label>
+            <input type="text" name="title" id="title" required />
+
+            <label for="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="3"
+            ></textarea>
+
+            <label for="due">Due Date</label>
+            <input type="datetime-local" name="due" id="due" />
+
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>
+
+            <label for="project">Project</label>
+            <select name="project" id="project">
+              <option value="1">All Tasks</option>
+             
+            </select>
+
+            <button type="submit" class="add-btn">Add</button>
+        </form>
+      </div>
+      </div>
+    </div>
+    <div class="footer">Copyright Charlie Downes 2022</div>
+  </div>
   </body>
 </html>
