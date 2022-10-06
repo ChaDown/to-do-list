@@ -7,48 +7,64 @@
     <title>To-Do List</title>
   </head>
   <body>
-    <div class="overlay"></div>
-    <div class="content">
-    <div class="header">
-      <div class="header-left">
-        <img src="./assets/home-outline.svg" alt="Home-icon" class="icon" />
-        <div class="title">My To-Do List</div>
+    <div class="overlay">
+      <div class="header">
+        <div class="header-left">
+          <img src="./assets/home-outline.svg" alt="Home-icon" class="icon home-btn" />
+          <div class="title">My To-Do List</div>
+        </div>
+        <div class="header-right">
+          <img
+            src="./assets/add-outline.svg"
+            alt="Add-icon"
+            class="icon add-icon"
+          />
+          <img
+            src="./assets/calendar-outline.svg"
+            alt="Cal-icon"
+            class="icon"
+          />
+        </div>
       </div>
-      <div class="header-right">
-        <img src="./assets/add-outline.svg" alt="Add-icon" class="icon add-icon" />
-        <img src="./assets/calendar-outline.svg" alt="Cal-icon" class="icon" />
-      </div>
-    </div>
-    <div class="main-container">
-      <div class="sidebar">
-        <ul>
-          <li>
-            <img class="icon" src="./assets/file-outline.svg" alt="file" />
-            All Tasks
-          </li>
-          <li>
-            <img class="icon" src="./assets/today-outline.svg" alt="today" />
-            Today
-          </li>
-          <li>
-            <img
-              class="icon"
-              src="./assets/construct-outline.svg"
-              alt="project"
-            />
-            Projects&nbsp&nbsp
-            <img
-              class="icon"
-              src="./assets/chevron-down-outline.svg"
-              alt="chevron"
-            />
-          </li>
-        </ul>
-      </div>
-      <div class="item-container">
-        <div class="folder-name">All Tasks</div>
-        <div class="items">
-          <!--
+      <div class="main-container">
+        <div class="sidebar">
+          <ul>
+            <li class="all-tasks-btn">
+              <img class="icon" src="./assets/file-outline.svg" alt="file" />
+              All Tasks
+            </li>
+            <li>
+              <img class="icon" src="./assets/today-outline.svg" alt="today" />
+              Today
+            </li>
+            <li class="projects">
+              <img
+                class="icon"
+                src="./assets/construct-outline.svg"
+                alt="project"
+              />
+              Projects&nbsp&nbsp
+              <img
+                class="icon chevron-up"
+                src="./assets/chevron-down-outline.svg"
+                alt="chevron"
+              />
+              <img
+                class="icon chevron-down hidden"
+                src="./assets/chevron-up-outline.svg"
+                alt="chevronup"
+              />
+            </li>
+          </ul>
+          <div class="projects-list project hidden"></div>
+          <div class="new-project-btn project hidden">
+            <img src="./assets/add-outline.svg" alt="Add-icon" class="icon" />
+          </div>
+        </div>
+        <div class="item-container">
+          <div class="folder-name">All Tasks</div>
+          <div class="items">
+            <!--
         <div class="item">
           <div class="item-name">Cut the grass</div>
           <div class="item-icons">
@@ -63,47 +79,70 @@
           </div>
         </div>
       -->
+          </div>
         </div>
       </div>
     </div>
-    <div class="add-item-modal">
-          <h2>Add a new task</h2>
+    <div class="add-item-modal hidden">
+      <h2>Add a new task</h2>
 
-          <form class="form-container">
+      <form class="form-container">
+        <label for="title"><b>Title</b></label>
+        <input type="text" name="title" id="title" required />
 
-            <label for="title"><b>Title</b></label>
-            <input type="text" name="title" id="title" required />
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description"
+          cols="30"
+          rows="3"
+        ></textarea>
 
-            <label for="description">Description</label>
-            <textarea
-              name="description"
-              id="description"
-              cols="30"
-              rows="3"
-            ></textarea>
+        <label for="due">Due Date</label>
+        <input type="datetime-local" name="due" id="due" required/>
 
-            <label for="due">Due Date</label>
-            <input type="datetime-local" name="due" id="due" />
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority">
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3">Low</option>
+        </select>
+        <label for="projects-select">Project</label>
+        <select name="projects-select" id="projects-select-add">
+        </select>
 
-            <label for="priority">Priority</label>
-            <select name="priority" id="priority">
-              <option value="1">High</option>
-              <option value="2">Medium</option>
-              <option value="3">Low</option>
-            </select>
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+    </div>
+    <div class="delete-check-modal hidden">
+      Are you sure you want to delete this item?
+      <button class="delete-yes">Yes</button>
+      <button class="delete-cancel">Cancel</button>
+    </div>
+    <div class="new-project-modal hidden">
+      Project Name:
+      <input
+        class="project-name-input"
+        type="text"
+        name="project-name"
+        id="project-name"
+        required
+      /><button class="new-project-add">Create Project</button
+      ><button class="new-project-cancel">Cancel</button>
+    </div>
+    <div class="add-to-project-modal hidden">
+      <div class="add-project-text"></div>
+      <label for="projects-select">Project</label>
+  <select name="projects-select" id="projects-select">
+ 
+  </select>
 
-            <label for="project">Project</label>
-            <select name="project" id="project">
-              <option value="1">All Tasks</option>
-             
-            </select>
-
-            <button type="submit" class="add-btn">Add</button>
-        </form>
-      </div>
+      <div>
+        <button class="add-yes">Add</button>
+        <button class="add-cancel">Cancel</button>
       </div>
     </div>
-    <div class="footer">Copyright Charlie Downes 2022</div>
-  </div>
+      <div class="footer">Copyright Charlie Downes 2022</div>
+    </div>
   </body>
 </html>

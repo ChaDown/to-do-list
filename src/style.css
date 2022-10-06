@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap");
 
 html,
 body {
@@ -8,6 +9,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.darkscale {
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
 }
 
 .header {
@@ -34,7 +39,9 @@ body {
 }
 
 .icon:hover,
-.add-btn:hover {
+.add-btn:hover,
+button:hover,
+.projects-dropdown:hover {
   background-color: rgb(211, 255, 249);
 }
 
@@ -80,8 +87,10 @@ li {
   border-bottom: solid rgb(224, 223, 223) 2px;
 }
 
-.add-item-modal {
-  display: none;
+.add-item-modal,
+.delete-check-modal,
+.new-project-modal,
+.add-to-project-modal {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -90,7 +99,7 @@ li {
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
-  border: solid grey 1px;
+  border: solid rgb(135, 210, 207) 1px;
   z-index: 9999;
   opacity: 1;
 }
@@ -101,20 +110,16 @@ li {
   gap: 1rem;
 }
 
+button,
 .add-btn {
-  grid-area: 6/ 2/ 7/ 3;
   background-color: rgb(240, 236, 236);
-  border: solid gray 1px;
+  border: solid rgb(211, 255, 249) 1px;
   border-radius: 5px;
+  padding: 5px;
 }
 
-.darkscale {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.364) !important;
-  height: 100vh;
-  width: 100vw;
+.add-btn {
+  grid-area: 6/ 2/ 7/ 3;
 }
 
 .red {
@@ -122,9 +127,61 @@ li {
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: rgba(248, 248, 61, 0.593);
 }
 
 .green {
   background-color: rgba(101, 198, 101, 0.443);
+}
+
+.info-container {
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: rgb(240, 236, 236);
+  font-size: 0.9rem;
+  font-family: "Didact Gothic", Courier, monospace;
+  width: 50vw;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.item-name {
+  width: 70%;
+}
+
+.new-project-modal {
+  display: flex;
+  justify-content: space-around;
+}
+
+.project-name-input {
+  border: rgba(0, 0, 0, 0.2) solid 1px;
+  border-radius: 3px;
+}
+
+.projects-dropdown {
+  margin-left: 35%;
+  color: rgb(79, 78, 78);
+  font-size: 0.9rem;
+  border-radius: 10px;
+  padding-left: 1rem;
+}
+
+.new-project-btn {
+  text-align: right;
+  margin-right: 9%;
+}
+
+.add-to-project-modal {
+  display: flex;
+  justify-content: space-between;
+}
+
+#projects-select {
+  border: solid 1px rgb(135, 210, 207);
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
 }

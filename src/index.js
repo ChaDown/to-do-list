@@ -1,14 +1,25 @@
 import "./style.css";
 import { format, parseISO } from "date-fns";
-import { renderTask } from "./view.js";
+import {
+  renderProjectSidebar,
+  renderProjectsSelect,
+  renderTask,
+} from "./view.js";
 import {
   addTaskHandler,
   tasksArr,
-  addItemModal,
   closeModalHandler,
   showModalHandler,
   addIconBtn,
+  newProjectHandler,
+  createProjectHandler,
+  projectsArr,
+  projectsSidebarClickHandler,
+  openProjectPage,
+  allTaskBtns,
+  allTasksHandler,
 } from "./handlers";
+import { closeNewProject, openNewProject } from "./helpers";
 
 const addBtn = document.querySelector(".add-btn");
 
@@ -29,12 +40,36 @@ export function ToDoItem(
   this.completed = completed;
 }
 
-// Add event listeners
-addBtn.addEventListener("click", addTaskHandler);
-addIconBtn.addEventListener("click", showModalHandler);
-document.addEventListener("click", closeModalHandler);
-
 (function init() {
   if (tasksArr) renderTask(tasksArr);
-  console.log(JSON.parse(localStorage.getItem("tasksArr")));
+  if (projectsArr) renderProjectSidebar(projectsArr);
+  renderProjectsSelect(projectsArr);
+  // Add event listeners
+  addBtn.addEventListener("click", addTaskHandler);
+  addIconBtn.addEventListener("click", showModalHandler);
+  document.addEventListener("click", closeModalHandler);
+  allTaskBtns.forEach((el) => el.addEventListener("click", allTasksHandler));
+
+  /////
+})();
+
+// const overlay = document.querySelector(".overlay");
+// overlay.classList.add("darkscale");
+
+(function projectFunctionality() {
+  const createProjectBtn = document.querySelector(".new-project-add");
+  const newProjectBtn = document.querySelector(".new-project-btn");
+  const cancelProjectBtn = document.querySelector(".new-project-cancel");
+  const projectsSidebar = document.querySelector(".projects");
+
+  //Expand sidebar when clicked
+  projectsSidebar.addEventListener("click", projectsSidebarClickHandler);
+  // Open modal when plus symbol clicked
+  newProjectBtn.addEventListener("click", openNewProject);
+  // Create project, add  to list and render project list
+  createProjectBtn.addEventListener("click", createProjectHandler);
+  // Close new project modal
+  cancelProjectBtn.addEventListener("click", closeNewProject);
+  // Render clicked project on main container
+  openProjectPage();
 })();
