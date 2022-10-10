@@ -3,6 +3,7 @@ import {
   editTaskHandler,
   addToProjectHandler,
   tasksArr,
+  clickOutsideModalClose,
 } from "./handlers";
 
 // export function clearFormInputs() {
@@ -17,6 +18,12 @@ export function priorityColor(item) {
   if (item.priority == 1) return "red";
   if (item.priority == 2) return "yellow";
   if (item.priority == 3) return "green";
+}
+
+export function changePriorityLogic(obj) {
+  if (obj.priority == "1") obj.priority == 2;
+  if (obj.priority == "2") obj.priority == 3;
+  if (obj.priority == "3") obj.priority == 1;
 }
 
 export function darkenScreen() {
@@ -68,11 +75,15 @@ export function addMainContainerListeners() {
   const deleteBtnsArr = document.querySelectorAll(".delete");
   const editBtnsArr = document.querySelectorAll(".edit");
   const addBtnsArr = document.querySelectorAll(".add");
+  const priorityBtnsArr = document.querySelectorAll(".icon-priority");
   const addItemModal = document.querySelector(".add-item-modal");
 
   deleteBtnsArr.forEach((el) => el.addEventListener("click", deleteHandler));
   editBtnsArr.forEach((el) => el.addEventListener("click", editTaskHandler));
   addBtnsArr.forEach((el) => el.addEventListener("click", addToProjectHandler));
+  priorityBtnsArr.forEach((el) =>
+    el.addEventListener("click", () => console.log("hello"))
+  );
 
   // Add info panel toggle when item name is clicked
   itemNamesArr.forEach((item) =>

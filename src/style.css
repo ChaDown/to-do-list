@@ -90,7 +90,8 @@ li {
 .add-item-modal,
 .delete-check-modal,
 .new-project-modal,
-.add-to-project-modal {
+.add-to-project-modal,
+.edit-task-modal {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -118,7 +119,8 @@ button,
   padding: 5px;
 }
 
-.add-btn {
+.add-btn,
+.edit-btn {
   grid-area: 6/ 2/ 7/ 3;
 }
 
@@ -184,4 +186,17 @@ button,
 
 .hidden {
   display: none;
+}
+
+.close-icon {
+  display: flex;
+  justify-content: right;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.icon-priority {
+  pointer-events: none;
 }

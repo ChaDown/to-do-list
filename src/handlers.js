@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import { format, parseISO, parse } from "date-fns";
 import { createInfoMarkup, renderProjectSidebar, renderTask } from "./view.js";
 import { ToDoItem } from "./index.js";
 import {
@@ -13,12 +13,29 @@ import {
   isAChildNode,
   getClickedItem,
   getClickedItemIndex,
+  changePriorityLogic,
 } from "./helpers.js";
 
 const addItemModal = document.querySelector(".add-item-modal");
 export const addIconBtn = document.querySelector(".add-icon");
 export const allTasksBtn = document.querySelector(".all-tasks-btn");
 export const homeBtn = document.querySelector(".home-btn");
+export const closeIcon = document.querySelector(".close-icon");
+export const addBtn = document.querySelector(".add-btn");
+export const editTaskModal = document.querySelector(".edit-task-modal");
+
+// DOM elements add task
+const newTitle = document.getElementById("title-add");
+const newDescription = document.getElementById("description-add");
+const newDueDate = document.getElementById("due-add");
+const newPriority = document.getElementById("priority-add");
+const newProject = document.getElementById("projects-select-add");
+// DOM elements edit task
+const editTitle = document.getElementById("title-edit");
+const editDescription = document.getElementById("description-edit");
+const editDueDate = document.getElementById("due-edit");
+const editPriority = document.getElementById("priority-edit");
+const editProject = document.getElementById("projects-select-edit");
 export const allTaskBtns = [homeBtn, allTasksBtn];
 
 // Sets the default tasksArr/projectsArr from local storage or and empty array if there is nothing stored!
@@ -28,13 +45,6 @@ export const projectsArr =
 
 // Handler to add new task to tasks Array from modal data
 export function addTaskHandler() {
-  // DOM elements
-  const newTitle = document.getElementById("title");
-  const newDescription = document.getElementById("description");
-  const newDueDate = document.getElementById("due");
-  const newPriority = document.getElementById("priority");
-  const newProject = document.getElementById("projects-select-add");
-
   // Create new to-do item
   const newItem = new ToDoItem(
     newTitle.value,
@@ -51,22 +61,10 @@ export function addTaskHandler() {
   document.querySelector(".form-container").reset();
 }
 
-// Function to close modal when outer screen is clicked
-export function closeModalHandler(e) {
-  if (e.target !== addIconBtn) {
-    if (!addItemModal.classList.contains("hidden")) {
-      const clickInside = addItemModal.contains(e.target);
-      if (!clickInside) {
-        addItemModal.classList.add("hidden");
-        removeDarkenScreen();
-      }
-    }
-  }
-}
-
-export function showModalHandler() {
+export function showModalHandler(e) {
   addItemModal.classList.remove("hidden");
   darkenScreen();
+  closeIcon.addEventListener("click", () => closeModal(addItemModal));
 }
 
 ////////////////// ICON HANDLERS /////////////
@@ -117,7 +115,52 @@ export function deleteHandler(e) {
   });
 }
 
-export function editTaskHandler(e) {}
+export function editTaskHandler(e) {
+  const closeEditBtn = document.querySelector(".close-edit");
+  const saveEditBtn = document.querySelector(".edit-btn");
+  const clickedItemObject = getClickedItem(e);
+
+  closeEditBtn.addEventListener("click", () => closeModal(editTaskModal));
+  saveEditBtn.addEventListener("click", saveEditHandler);
+
+  openModal(editTaskModal);
+
+  // Update edit form values using the clicked object to be edited so they appear.
+  editTitle.value = clickedItemObject.title;
+  editDescription.value = clickedItemObject.description;
+  editDueDate.value = "";
+  editPriority.value = clickedItemObject.priority;
+  editProject.value = clickedItemObject.project;
+
+  //Update task object values based on edited input data when save is pressed.
+  function saveEditHandler(e) {
+    // Stop page reloading when submit button pressed
+    e.preventDefault();
+
+    clickedItemObject.title = editTitle.value;
+    clickedItemObject.description = editDescription.value;
+    clickedItemObject.dueDate = format(
+      parseISO(editDueDate.value),
+      "LLL d 'at' k:m"
+    );
+    clickedItemObject.priority = editPriority.value;
+    clickedItemObject.project = editProject.value;
+
+    // Render with updated object
+    renderTask(tasksArr);
+    closeModal(editTaskModal);
+  }
+}
+
+export function changePriority(e) {
+  console.log("hello");
+  const clickedItemObject = getClickedItem(e);
+  console.log(clickedItemObject);
+
+  changePriorityLogic(clickedItemObject);
+
+  renderTask(tasksArr);
+}
 
 /////////////////////// PROJECTS ////////////////////////
 
