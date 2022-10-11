@@ -3,27 +3,30 @@ import {
   editTaskHandler,
   addToProjectHandler,
   tasksArr,
-  clickOutsideModalClose,
+  changePriority,
+  checkBoxHandler,
+  clearCheckboxHandler,
+  todayHandler,
 } from "./handlers";
 
-// export function clearFormInputs() {
-//   newTitle.value = "";
-//   newDescription.value = "";
-//   newDueDate.value = "";
-//   newPriority.value = "";
-//   newProject.value = "";
-// }
+import { renderTask } from "./view";
 
 export function priorityColor(item) {
   if (item.priority == 1) return "red";
-  if (item.priority == 2) return "yellow";
-  if (item.priority == 3) return "green";
+  if (item.priority == 2) return "orange";
+  if (item.priority == 3) return "yellow";
 }
 
 export function changePriorityLogic(obj) {
-  if (obj.priority == "1") obj.priority == 2;
-  if (obj.priority == "2") obj.priority == 3;
-  if (obj.priority == "3") obj.priority == 1;
+  if (obj.priority == 1) {
+    obj.priority = 2;
+    return;
+  }
+  if (obj.priority == 2) {
+    obj.priority = 3;
+    return;
+  }
+  if (obj.priority == 3) obj.priority = 1;
 }
 
 export function darkenScreen() {
@@ -76,13 +79,19 @@ export function addMainContainerListeners() {
   const editBtnsArr = document.querySelectorAll(".edit");
   const addBtnsArr = document.querySelectorAll(".add");
   const priorityBtnsArr = document.querySelectorAll(".icon-priority");
+  const emptyCheckBoxArr = document.querySelectorAll(".check-empty");
+  const checkedBoxesArr = document.querySelectorAll(".check-checked");
   const addItemModal = document.querySelector(".add-item-modal");
 
   deleteBtnsArr.forEach((el) => el.addEventListener("click", deleteHandler));
   editBtnsArr.forEach((el) => el.addEventListener("click", editTaskHandler));
   addBtnsArr.forEach((el) => el.addEventListener("click", addToProjectHandler));
-  priorityBtnsArr.forEach((el) =>
-    el.addEventListener("click", () => console.log("hello"))
+  priorityBtnsArr.forEach((el) => el.addEventListener("click", changePriority));
+  emptyCheckBoxArr.forEach((el) =>
+    el.addEventListener("click", checkBoxHandler)
+  );
+  checkedBoxesArr.forEach((el) =>
+    el.addEventListener("click", clearCheckboxHandler)
   );
 
   // Add info panel toggle when item name is clicked
@@ -125,4 +134,18 @@ export function getClickedItemIndex(event) {
   );
 
   return clickedItemIndex;
+}
+
+// Function used when rendering to choose whether to render all tasks page or a specific project page, based on the current page.
+export function renderAllTasksOrProject() {
+  // Use current folder name to see if we are on All Tasks or a project page
+  const folderName = document.querySelector(".folder-name").textContent;
+  // Get all tasks in given project
+  const projectItemsArr = tasksArr.filter((el) => el.project === folderName);
+  // Identify if we're on All Tasks page or specific project page.
+  if (folderName === "All Tasks") renderTask(tasksArr);
+  if (folderName === "Today's Tasks") todayHandler();
+  else {
+    renderTask(projectItemsArr);
+  }
 }

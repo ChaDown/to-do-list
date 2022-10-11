@@ -18,10 +18,15 @@ import {
   openProjectPage,
   allTaskBtns,
   allTasksHandler,
+  clickOutsideModalClose,
+  closeIcon,
+  addBtn,
+  todayBtn,
+  todayHandler,
+  menuBtn,
+  menuHandler,
 } from "./handlers";
-import { closeNewProject, openNewProject } from "./helpers";
-
-const addBtn = document.querySelector(".add-btn");
+import { closeModal, closeNewProject, openNewProject } from "./helpers";
 
 // Factory function to create to-do item
 export function ToDoItem(
@@ -47,14 +52,18 @@ export function ToDoItem(
   // Add event listeners
   addBtn.addEventListener("click", addTaskHandler);
   addIconBtn.addEventListener("click", showModalHandler);
-  document.addEventListener("click", closeModalHandler);
-  allTaskBtns.forEach((el) => el.addEventListener("click", allTasksHandler));
+  todayBtn.addEventListener("click", todayHandler);
+  menuBtn.addEventListener("click", menuHandler);
+  //document.addEventListener("click", closeModalHandler);
 
+  allTaskBtns.forEach((el) => el.addEventListener("click", allTasksHandler));
   /////
 })();
 
 // const overlay = document.querySelector(".overlay");
 // overlay.classList.add("darkscale");
+
+/// PROJECTS ///
 
 (function projectFunctionality() {
   const createProjectBtn = document.querySelector(".new-project-add");
@@ -70,6 +79,4 @@ export function ToDoItem(
   createProjectBtn.addEventListener("click", createProjectHandler);
   // Close new project modal
   cancelProjectBtn.addEventListener("click", closeNewProject);
-  // Render clicked project on main container
-  openProjectPage();
 })();
