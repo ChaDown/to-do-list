@@ -8,10 +8,10 @@ import checkedBox from "./assets/checkbox-outline.svg";
 import { format, parseISO } from "date-fns";
 import {
   addMainContainerListeners,
-  localSave,
+  addSidebarListeners,
   priorityColor,
 } from "./helpers.js";
-import { openProjectPage, tasksArr } from "./handlers";
+import { tasksArr } from "./handlers";
 
 export function renderTask(arr) {
   const itemContainer = document.querySelector(".items");
@@ -89,7 +89,7 @@ export function renderProjectSidebar(arr) {
   localStorage.setItem("projectsArr", projectsArrString);
 
   // Add event listeners
-  openProjectPage();
+  addSidebarListeners();
 }
 
 export function renderProjectsSelect(arr) {

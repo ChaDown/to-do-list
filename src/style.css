@@ -147,7 +147,7 @@ button,
   background-color: rgb(240, 236, 236);
   font-size: 0.9rem;
   font-family: "Didact Gothic", Courier, monospace;
-  width: 50vw;
+  width: 40vw;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
@@ -175,6 +175,7 @@ button,
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .new-project-btn {
@@ -196,7 +197,7 @@ button,
   display: none;
 }
 
-.close-icon {
+.close-icon-div {
   display: flex;
   justify-content: right;
   align-items: center;
@@ -221,4 +222,10 @@ h2 {
 
 .strike {
   text-decoration: line-through;
+}
+
+.icon:hover,
+.item:hover,
+li:hover {
+  cursor: pointer;
 }

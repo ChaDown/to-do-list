@@ -1,5 +1,4 @@
 import {
-  deleteHandler,
   editTaskHandler,
   addToProjectHandler,
   tasksArr,
@@ -7,6 +6,10 @@ import {
   checkBoxHandler,
   clearCheckboxHandler,
   todayHandler,
+  DOMElements,
+  deleteBtnHandler,
+  deleteProject,
+  projectOpenHandler,
 } from "./handlers";
 
 import { renderTask } from "./view";
@@ -29,61 +32,27 @@ export function changePriorityLogic(obj) {
   if (obj.priority == 3) obj.priority = 1;
 }
 
-export function darkenScreen() {
+export function toggleDarkScreen() {
   const header = document.querySelector(".header");
   const sidebar = document.querySelector(".sidebar");
   const itemContainer = document.querySelector(".item-container");
   const footer = document.querySelector(".footer");
   const displayArr = [header, sidebar, itemContainer, footer];
 
-  displayArr.forEach((el) => el.classList.add("darkscale"));
-}
-
-export function removeDarkenScreen() {
-  const header = document.querySelector(".header");
-  const sidebar = document.querySelector(".sidebar");
-  const itemContainer = document.querySelector(".item-container");
-  const footer = document.querySelector(".footer");
-  const displayArr = [header, sidebar, itemContainer, footer];
-
-  displayArr.forEach((el) => el.classList.remove("darkscale"));
-}
-
-export function openCheckDelete() {
-  const deleteModal = document.querySelector(".delete-check-modal");
-  deleteModal.classList.remove("hidden");
-  darkenScreen();
-}
-
-export function closeCheckDelete() {
-  const deleteModal = document.querySelector(".delete-check-modal");
-  deleteModal.classList.add("hidden");
-  removeDarkenScreen();
-}
-
-export function openNewProject() {
-  const newProjectModal = document.querySelector(".new-project-modal");
-  newProjectModal.classList.remove("hidden");
-  darkenScreen();
-}
-
-export function closeNewProject() {
-  document.querySelector(".new-project-modal").classList.add("hidden");
-  removeDarkenScreen();
+  displayArr.forEach((el) => el.classList.toggle("darkscale"));
 }
 
 export function addMainContainerListeners() {
   // Add new event listeners every time we render
-  const itemNamesArr = document.querySelectorAll(".item-name");
+  const itemsArr = document.querySelectorAll(".item");
   const deleteBtnsArr = document.querySelectorAll(".delete");
   const editBtnsArr = document.querySelectorAll(".edit");
   const addBtnsArr = document.querySelectorAll(".add");
   const priorityBtnsArr = document.querySelectorAll(".icon-priority");
   const emptyCheckBoxArr = document.querySelectorAll(".check-empty");
   const checkedBoxesArr = document.querySelectorAll(".check-checked");
-  const addItemModal = document.querySelector(".add-item-modal");
 
-  deleteBtnsArr.forEach((el) => el.addEventListener("click", deleteHandler));
+  deleteBtnsArr.forEach((el) => el.addEventListener("click", deleteBtnHandler));
   editBtnsArr.forEach((el) => el.addEventListener("click", editTaskHandler));
   addBtnsArr.forEach((el) => el.addEventListener("click", addToProjectHandler));
   priorityBtnsArr.forEach((el) => el.addEventListener("click", changePriority));
@@ -95,27 +64,40 @@ export function addMainContainerListeners() {
   );
 
   // Add info panel toggle when item name is clicked
-  itemNamesArr.forEach((item) =>
-    item.addEventListener("click", () => {
-      item.lastChild.classList.toggle("hidden");
+  itemsArr.forEach((item) =>
+    item.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("icon"))
+        item.firstElementChild.lastChild.classList.toggle("hidden");
     })
   );
 }
 
-export function closeModal(modal) {
-  modal.classList.add("hidden");
-  removeDarkenScreen();
+export function addSidebarListeners() {
+  const projectsElsArr = document.querySelectorAll(".projects-dropdown");
+  const xBtnsArr = document.querySelectorAll(".x-btn");
+
+  xBtnsArr.forEach((el) =>
+    el.addEventListener("click", deleteProject, { once: true })
+  );
+
+  // Add event listeners for each project and x-delete btn on hover
+  projectsElsArr.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      console.log(e.target);
+      if (!e.target.classList.contains("x-btn")) projectOpenHandler(e);
+    });
+    el.addEventListener("mouseenter", (e) =>
+      e.target.lastElementChild.classList.remove("hidden")
+    );
+    el.addEventListener("mouseleave", (e) =>
+      e.target.lastElementChild.classList.add("hidden")
+    );
+  });
 }
 
-export function openModal(modal) {
-  modal.classList.remove("hidden");
-  darkenScreen();
-}
-
-export function isOnMainPage() {
-  const items = document.querySelector("items");
-
-  parent.contains(child) ? true : false;
+export function toggleModal(modal) {
+  modal.classList.toggle("hidden");
+  toggleDarkScreen();
 }
 
 export function getClickedItem(event) {
@@ -139,12 +121,15 @@ export function getClickedItemIndex(event) {
 // Function used when rendering to choose whether to render all tasks page or a specific project page, based on the current page.
 export function renderAllTasksOrProject() {
   // Use current folder name to see if we are on All Tasks or a project page
-  const folderName = document.querySelector(".folder-name").textContent;
+  const folderNameText = DOMElements.projectTitle.textContent.trim();
   // Get all tasks in given project
-  const projectItemsArr = tasksArr.filter((el) => el.project === folderName);
+  const projectItemsArr = tasksArr.filter(
+    (el) => el.project === folderNameText
+  );
   // Identify if we're on All Tasks page or specific project page.
-  if (folderName === "All Tasks") renderTask(tasksArr);
-  if (folderName === "Today's Tasks") todayHandler();
+  if (folderNameText === "All Tasks") {
+    renderTask(tasksArr);
+  } else if (folderNameText === "Today's Tasks") todayHandler();
   else {
     renderTask(projectItemsArr);
   }
