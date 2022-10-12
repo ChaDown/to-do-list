@@ -101,7 +101,7 @@ li {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 51vw;
+  width: fit-content;
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
@@ -156,9 +156,16 @@ button,
   width: fit-content;
 }
 
-.new-project-modal {
+.new-project-modal,
+.add-to-project-modal,
+.delete-btns {
   display: flex;
+  gap: 10px;
   justify-content: space-around;
+}
+
+.delete-btns {
+  margin-top: 10px;
 }
 
 .project-name-input {
