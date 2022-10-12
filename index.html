@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+  <script defer src="/to-do-list/main.js"></script></head>
+  <body>
+    <div class="overlay">
+      <div class="header">
+        <div class="header-left">
+          <img src="/to-do-list/cade3556e6c9b326d623.svg" alt="menu-icon" class="icon menu-btn" />
+          <img src="/to-do-list/8327a4ec11e7212b8a74.svg" alt="Home-icon" class="icon home-btn" />
+          <div class="title">My To-Do List</div>
+        </div>
+        <div class="header-right">
+          <img
+            src="/to-do-list/8a84f57897338a51d970.svg"
+            alt="Add-icon"
+            class="icon add-icon"
+          />
+        </div>
+      </div>
+      <div class="main-container">
+        <div class="sidebar">
+          <ul>
+            <li class="all-tasks-btn">
+              <img class="icon" src="/to-do-list/ee920cbaedd6ef55ce10.svg" alt="file" />
+              All Tasks
+            </li>
+            <li class="today-btn">
+              <img class="icon" src="/to-do-list/7932230f222e29d80750.svg" alt="today" />
+              Today
+            </li>
+            <li class="projects">
+              <img
+                class="icon"
+                src="/to-do-list/ec98b5154fc2329fcd66.svg"
+                alt="project"
+              />
+              Projects&nbsp&nbsp
+              <img
+                class="icon chevron-up"
+                src="/to-do-list/8261387b46a4e157bdf6.svg"
+                alt="chevron"
+              />
+              <img
+                class="icon chevron-down hidden"
+                src="/to-do-list/99c0a5983627e2e09bdc.svg"
+                alt="chevronup"
+              />
+            </li>
+          </ul>
+          <div class="projects-list project hidden"></div>
+          <div class="new-project-btn project hidden">
+            <img src="/to-do-list/8a84f57897338a51d970.svg" alt="Add-icon" class="icon" />
+          </div>
+        </div>
+        <div class="item-container">
+          <div class="folder-name">All Tasks</div>
+          <div class="items">
+            <!--
+        <div class="item">
+          <div class="item-name">Cut the grass</div>
+          <div class="item-icons">
+            <img
+              class="icon"
+              src="./assets/alert-circle-outline.svg"
+              alt="alert"
+            />
+            <img class="icon" src="./assets/create-outline.svg" alt="edit" />
+            <img class="icon" src="./assets/add-circle-outline.svg" alt="add" />
+            <img class="icon" src="./assets/trash-outline.svg" alt="delete" />
+          </div>
+        </div>
+      -->
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="add-item-modal modal hidden">
+
+      <div class="close-icon-div"><img src="/to-do-list/64f09d760e8936f5907a.svg" alt="Close-icon" class="icon close-icon " /></div>
+      <h2>Add a new task</h2>
+
+      <form class="form-container">
+        <label for="title"><b>Title</b></label>
+        <input type="text" name="title" id="title-add" required />
+
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description-add"
+          cols="30"
+          rows="3"
+        ></textarea>
+
+        <label for="due">Due Date</label>
+        <input type="datetime-local" name="due" id="due-add" required/>
+
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority-add">
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3">Low</option>
+        </select>
+        <label for="projects-select">Project</label>
+        <select name="projects-select" id="projects-select-add">
+        </select>
+
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+    </div> 
+    <div class="delete-check-modal modal hidden">
+      Are you sure you want to delete this item?
+      <button class="delete-yes">Yes</button>
+      <button class="delete-cancel">Cancel</button>
+    </div>
+    <div class="new-project-modal modal hidden">
+      Project Name:
+      <input
+        class="project-name-input"
+        type="text"
+        name="project-name"
+        id="project-name"
+        required
+      /><button class="new-project-add">Create Project</button
+      ><button class="new-project-cancel">Cancel</button>
+    </div>
+    <div class="add-to-project-modal modal hidden">
+      <div class="add-project-text"></div>
+      <label for="projects-select">Project</label>
+  <select name="projects-select" id="projects-select">
+ 
+  </select>
+
+      <div>
+        <button class="add-yes">Add</button>
+        <button class="add-cancel">Cancel</button>
+      </div>
+    </div>
+    <div class="edit-task-modal hidden">
+      <div class="close-icon-div"><img src="/to-do-list/64f09d760e8936f5907a.svg" alt="Close-icon" class="icon close-edit" /></div>
+      <h2>Edit task</h2>
+
+      <form class="form-container">
+        <label for="title"><b>Title</b></label>
+        <input type="text" name="title" id="title-edit" required />
+
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description-edit"
+          cols="30"
+          rows="3"
+        ></textarea>
+
+        <label for="due">Due Date</label>
+        <input type="datetime-local" name="due" id="due-edit" required/>
+
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority-edit">
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3">Low</option>
+        </select>
+        <label for="projects-select">Project</label>
+        <select name="projects-select" id="projects-select-edit">
+        </select>
+
+        <button type="submit" class="edit-btn">Save Changes</button>
+      </form>
+    </div>
+      <div class="footer">Copyright Charlie Downes 2022</div>
+    </div>
+  </body>
+</html>
