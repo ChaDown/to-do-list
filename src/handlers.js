@@ -1,6 +1,9 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-use-before-define */
+/* eslint-disable import/no-cycle */
 import { format, parseISO } from 'date-fns';
 import { renderProjectSidebar, renderProjectsSelect, renderTask } from './view';
-import { ToDoItem } from './index';
+import ToDoItem from './index';
 import * as helpersJs from './helpers';
 
 export const DOMElements = {

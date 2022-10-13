@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable import/no-cycle */
 import { format, parseISO } from 'date-fns';
 import addCircle from './assets/add-circle-outline.svg';

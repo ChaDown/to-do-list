@@ -19,21 +19,21 @@ import {
 import { renderTask } from './view';
 
 export function priorityColor(item) {
-  if (item.priority === 1) return 'red';
-  if (item.priority === 2) return 'orange';
-  if (item.priority === 3) return 'yellow';
+  if (item.priority === '1') return 'red';
+  if (item.priority === '2') return 'orange';
+  if (item.priority === '3') return 'yellow';
 }
 
 export function changePriorityLogic(obj) {
-  if (obj.priority === 1) {
-    obj.priority = 2;
+  if (obj.priority === '1') {
+    obj.priority = '2';
     return;
   }
-  if (obj.priority === 2) {
-    obj.priority = 3;
+  if (obj.priority === '2') {
+    obj.priority = '3';
     return;
   }
-  if (obj.priority === 3) obj.priority = 1;
+  if (obj.priority === '3') obj.priority = '1';
 }
 
 export function toggleDarkScreen() {

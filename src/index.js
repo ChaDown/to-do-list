@@ -1,21 +1,8 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-cycle */
 import './style.css';
-import {
-  renderProjectSidebar,
-  renderProjectsSelect,
-  renderTask,
-} from './view.js';
-import {
-  tasksArr,
-  createProjectHandler,
-  projectsArr,
-  projectsSidebarClickHandler,
-  allTaskBtns,
-  allTasksHandler,
-  todayHandler,
-  menuHandler,
-  addModalListeners,
-  DOMElements,
-} from './handlers';
+import { renderProjectSidebar, renderProjectsSelect, renderTask } from './view';
+import * as handlers from './handlers';
 import { toggleModal } from './helpers';
 
 // Factory function to create to-do item
@@ -31,23 +18,28 @@ export default function ToDoItem(
     (this.description = description),
     (this.dueDate = dueDate),
     (this.priority = priority),
-    (this.project = project);
-  this.completed = completed;
+    (this.project = project),
+    (this.completed = completed);
 }
 
 (function init() {
-  if (tasksArr) renderTask(tasksArr);
-  if (projectsArr) renderProjectSidebar(projectsArr);
-  renderProjectsSelect(projectsArr);
+  if (handlers.tasksArr) renderTask(handlers.tasksArr);
+  if (handlers.projectsArr) renderProjectSidebar(handlers.projectsArr);
+  renderProjectsSelect(handlers.projectsArr);
 
   // Add event listeners for home page
-  DOMElements.addIconBtn.addEventListener('click', () =>
-    toggleModal(DOMElements.addItemModal)
+  handlers.DOMElements.addIconBtn.addEventListener('click', () =>
+    toggleModal(handlers.DOMElements.addItemModal)
   );
-  DOMElements.todayBtn.addEventListener('click', todayHandler);
-  DOMElements.menuBtn.addEventListener('click', menuHandler);
-  addModalListeners();
-  allTaskBtns.forEach((el) => el.addEventListener('click', allTasksHandler));
+  handlers.DOMElements.todayBtn.addEventListener(
+    'click',
+    handlers.todayHandler
+  );
+  handlers.DOMElements.menuBtn.addEventListener('click', handlers.menuHandler);
+  handlers.addModalListeners();
+  handlers.allTaskBtns.forEach((el) =>
+    el.addEventListener('click', handlers.allTasksHandler)
+  );
   /// //
 })();
 
@@ -60,15 +52,18 @@ export default function ToDoItem(
   const projectsSidebar = document.querySelector('.projects');
 
   // Expand sidebar when clicked
-  projectsSidebar.addEventListener('click', projectsSidebarClickHandler);
+  projectsSidebar.addEventListener(
+    'click',
+    handlers.projectsSidebarClickHandler
+  );
   // Open modal when plus symbol clicked
   newProjectBtn.addEventListener('click', () =>
-    toggleModal(DOMElements.newProjectModal)
+    toggleModal(handlers.DOMElements.newProjectModal)
   );
   // Create project, add  to list and render project list
-  createProjectBtn.addEventListener('click', createProjectHandler);
+  createProjectBtn.addEventListener('click', handlers.createProjectHandler);
   // Close new project modal
   cancelProjectBtn.addEventListener('click', () =>
-    toggleModal(DOMElements.newProjectModal)
+    toggleModal(handlers.DOMElements.newProjectModal)
   );
 })();
