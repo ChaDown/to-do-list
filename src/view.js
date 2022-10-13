@@ -1,30 +1,27 @@
-import addCircle from "./assets/add-circle-outline.svg";
-import trash from "./assets/trash-outline.svg";
-import create from "./assets/create-outline.svg";
-import alert from "./assets/alert-circle-outline.svg";
-import xdelete from "./assets/close-circle-outline.svg";
-import emptyBox from "./assets/square-outline.svg";
-import checkedBox from "./assets/checkbox-outline.svg";
-import { format, parseISO } from "date-fns";
-import {
-  addMainContainerListeners,
-  addSidebarListeners,
-  priorityColor,
-} from "./helpers.js";
-import { tasksArr } from "./handlers";
+/* eslint-disable import/no-cycle */
+import { format, parseISO } from 'date-fns';
+import addCircle from './assets/add-circle-outline.svg';
+import trash from './assets/trash-outline.svg';
+import create from './assets/create-outline.svg';
+import alert from './assets/alert-circle-outline.svg';
+import xdelete from './assets/close-circle-outline.svg';
+import emptyBox from './assets/square-outline.svg';
+import checkedBox from './assets/checkbox-outline.svg';
+import * as helpersJs from './helpers';
+import { tasksArr } from './handlers';
 
 export function renderTask(arr) {
-  const itemContainer = document.querySelector(".items");
+  const itemContainer = document.querySelector('.items');
   // Clear main container
-  itemContainer.innerHTML = "";
+  itemContainer.innerHTML = '';
 
   // Create HTML markup for each element in the arr and add it to item container
   if (arr.length > 0) {
     for (let i = 0; i < arr.length; i++) {
-      const color = priorityColor(arr[i]);
+      const color = helpersJs.priorityColor(arr[i]);
 
       const markUp = ` <div class="item" >
-    <div class="item-name ${arr[i].completed && "strike"}">
+    <div class="item-name ${arr[i].completed && 'strike'}">
     ${arr[i].title}
         <div class="info-container hidden">
             <div class="info-description">Description: ${
@@ -39,7 +36,7 @@ export function renderTask(arr) {
         </div></div>
     <div class="item-icons"  data-title="${arr[i].title}">
     <img class="icon ${
-      arr[i].completed ? "check-checked" : "check-empty"
+      arr[i].completed ? 'check-checked' : 'check-empty'
     }" src=${arr[i].completed ? checkedBox : emptyBox} alt="box" />
       <img
         class="icon-priority ${color}
@@ -53,28 +50,29 @@ export function renderTask(arr) {
     </div>
   </div>`;
 
-      itemContainer.insertAdjacentHTML("afterbegin", markUp);
+      itemContainer.insertAdjacentHTML('afterbegin', markUp);
     }
 
-    //Add all event listeners to items/icons
-    addMainContainerListeners();
+    // Add all event listeners to items/icons
+    helpersJs.addMainContainerListeners();
   } else {
-    const emptyMarkUp = `<div class="item-name">&nbsp&nbspNothing on the plan yet!</div>`;
+    const emptyMarkUp =
+      '<div class="item-name">&nbsp&nbspNothing on the plan yet!</div>';
 
     itemContainer.innerHTML = emptyMarkUp;
   }
 
   // Store tasksArr to local storage every time we update it
   const tasksArrString = JSON.stringify(tasksArr);
-  localStorage.setItem("tasksArr", tasksArrString);
+  localStorage.setItem('tasksArr', tasksArrString);
 }
 
 export function renderProjectSidebar(arr) {
-  const projectsList = document.querySelector(".projects-list");
+  const projectsList = document.querySelector('.projects-list');
   // Clear project list
-  projectsList.innerHTML = "";
+  projectsList.innerHTML = '';
 
-  let markUp = "";
+  let markUp = '';
   // Add to the markup string for each element
   arr.forEach((el) => {
     markUp += `<li class="projects-dropdown">${el}<img class="x-btn hidden" src=${xdelete} alt="deletex"/>
@@ -83,22 +81,22 @@ export function renderProjectSidebar(arr) {
     projectsList.innerHTML = markUp;
   });
 
-  //Update local storage every time we render
+  // Update local storage every time we render
 
   const projectsArrString = JSON.stringify(arr);
-  localStorage.setItem("projectsArr", projectsArrString);
+  localStorage.setItem('projectsArr', projectsArrString);
 
   // Add event listeners
-  addSidebarListeners();
+  helpersJs.addSidebarListeners();
 }
 
 export function renderProjectsSelect(arr) {
-  const selectElAdd = document.getElementById("projects-select-add");
-  const selectElEdit = document.getElementById("projects-select-edit");
-  const selectEl = document.getElementById("projects-select");
+  const selectElAdd = document.getElementById('projects-select-add');
+  const selectElEdit = document.getElementById('projects-select-edit');
+  const selectEl = document.getElementById('projects-select');
 
-  //Dynamically add mark up for each element in projects list arr
-  let innerMarkUp = "";
+  // Dynamically add mark up for each element in projects list arr
+  let innerMarkUp = '';
 
   for (let i = 0; i < arr.length; i++) {
     innerMarkUp += `<option value="${arr[i]}">${arr[i]}</option>`;

@@ -1,9 +1,9 @@
-import "./style.css";
+import './style.css';
 import {
   renderProjectSidebar,
   renderProjectsSelect,
   renderTask,
-} from "./view.js";
+} from './view.js';
 import {
   tasksArr,
   createProjectHandler,
@@ -15,11 +15,11 @@ import {
   menuHandler,
   addModalListeners,
   DOMElements,
-} from "./handlers";
-import { toggleModal } from "./helpers";
+} from './handlers';
+import { toggleModal } from './helpers';
 
 // Factory function to create to-do item
-export function ToDoItem(
+export default function ToDoItem(
   title,
   description,
   dueDate,
@@ -41,34 +41,34 @@ export function ToDoItem(
   renderProjectsSelect(projectsArr);
 
   // Add event listeners for home page
-  DOMElements.addIconBtn.addEventListener("click", () =>
+  DOMElements.addIconBtn.addEventListener('click', () =>
     toggleModal(DOMElements.addItemModal)
   );
-  DOMElements.todayBtn.addEventListener("click", todayHandler);
-  DOMElements.menuBtn.addEventListener("click", menuHandler);
+  DOMElements.todayBtn.addEventListener('click', todayHandler);
+  DOMElements.menuBtn.addEventListener('click', menuHandler);
   addModalListeners();
-  allTaskBtns.forEach((el) => el.addEventListener("click", allTasksHandler));
-  /////
+  allTaskBtns.forEach((el) => el.addEventListener('click', allTasksHandler));
+  /// //
 })();
 
 /// PROJECTS ///
 
 (function projectFunctionality() {
-  const createProjectBtn = document.querySelector(".new-project-add");
-  const newProjectBtn = document.querySelector(".new-project-btn");
-  const cancelProjectBtn = document.querySelector(".new-project-cancel");
-  const projectsSidebar = document.querySelector(".projects");
+  const createProjectBtn = document.querySelector('.new-project-add');
+  const newProjectBtn = document.querySelector('.new-project-btn');
+  const cancelProjectBtn = document.querySelector('.new-project-cancel');
+  const projectsSidebar = document.querySelector('.projects');
 
-  //Expand sidebar when clicked
-  projectsSidebar.addEventListener("click", projectsSidebarClickHandler);
+  // Expand sidebar when clicked
+  projectsSidebar.addEventListener('click', projectsSidebarClickHandler);
   // Open modal when plus symbol clicked
-  newProjectBtn.addEventListener("click", () =>
+  newProjectBtn.addEventListener('click', () =>
     toggleModal(DOMElements.newProjectModal)
   );
   // Create project, add  to list and render project list
-  createProjectBtn.addEventListener("click", createProjectHandler);
+  createProjectBtn.addEventListener('click', createProjectHandler);
   // Close new project modal
-  cancelProjectBtn.addEventListener("click", () =>
+  cancelProjectBtn.addEventListener('click', () =>
     toggleModal(DOMElements.newProjectModal)
   );
 })();
